@@ -20,7 +20,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Collapse from '@material-ui/core/Collapse';
 
-import PlayerPage from './PlayerPage'
+import PlayerPage from '../PlayerPage'
 
 
 import Dashboard from '@material-ui/icons/Dashboard';
@@ -120,7 +120,8 @@ class MiniDrawer extends React.Component {
     this.state = {
       open: false,
       managementOpen:false,
-      elements: []
+      elements: [],
+      src:''
     };
   }
   handleClickManagement = () => {
@@ -141,10 +142,21 @@ class MiniDrawer extends React.Component {
     })
   }
   selectedSrc(src){
-    this.render(){
+    console.log('src: ',src)
+if(src!=this.state.src)
+    this.setState({src:src},()=>{
+    console.log('this.state.src: ',this.state.src)
+    this.props.selectedSrc=src
 
-      <PlayerPage src/>
-    }
+    })
+//     var localComponents=[]
+    
+// localComponents.push(
+//   <PlayerPage src/>
+
+// )
+// this.setState({ localComponent: localComponent },()=>{})
+  
   }
 
   render() {
@@ -190,7 +202,9 @@ class MiniDrawer extends React.Component {
           
           <ListItem>
           
-          <Button onClick={this.selectedSrc('http://192.168.0.116:8000/out2.m3u8')}>شبکه یک</Button>
+          <Button onClick={this.selectedSrc('http://172.16.17.159:8000/out.m3u8')}>شبکه یک</Button>
+          {/* <Button onClick={this.selectedSrc('http://172.16.17.159:8000/out2.m3u8')}>شبکه یک</Button> */}
+          {/* <Button onClick={this.selectedSrc('http://192.168.0.116:8000/out2.m3u8')}>شبکه یک</Button> */}
           </ListItem>
          
 

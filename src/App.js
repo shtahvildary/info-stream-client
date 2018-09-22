@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import InfoPlayer from './PlayerPage'
-import Drawer from './Drawer'
+import Drawer from './components/Drawer'
 
 class App extends Component {
   render() {
@@ -13,7 +13,9 @@ class App extends Component {
         {/* <p className="App-intro">
         
         </p> */}
-        <InfoPlayer src="http://192.168.0.116:8000/out.m3u8"/>
+        <InfoPlayer/>
+        {/* <InfoPlayer src="http://172.16.16.153:8000/tv1.m3u8"/> */}
+        {/* <InfoPlayer src="http://172.16.17.159:8000/out.m3u8"/> */}
       </div>
     );
   }
