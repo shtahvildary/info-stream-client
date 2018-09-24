@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './styles/App.css';
 import InfoPlayer from './PlayerPage'
 import "./styles/scss/video-react.scss"
 
