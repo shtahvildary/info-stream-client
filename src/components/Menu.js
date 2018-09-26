@@ -37,7 +37,8 @@ componentWillMount(){
      >انتخاب کنید...</MenuItem>
   this.props.items.map((i,index)=>{
     console.log("this.props.defaultValue: ",this.props.defaultValue)
-    console.log('i: ',i)
+    
+    // return (<option key={value}  value={option}>{option}</option>)
 
     items.push(<MenuItem 
       key={i}
@@ -105,3 +106,31 @@ handleClickListItem = event => {
 // };
 // export default SimpleListMenu;
 export default withStyles(styles)(SimpleListMenu);
+
+
+
+
+
+
+// return (
+//   <div className="filter-options">
+//     <div className="filter-option">
+//       <select id="product" name="Product" value={this.props.product} onChange={this.changeOption.bind(this, 'product')}>
+//       <option value=''>Product</option>
+//       {this.props.productOptions.map(function(option) {
+//         return (<option key={option}  value={option}>{option}</option>)
+//       })}
+//       </select>
+//   </div>
+//   </div>
+//  );
+//  }
+//  });
+
+
+//  <select id="product" name="Product" value={this.props.product} onChange={this.changeOption.bind(this, 'product')}>
+//       <option value=''>Product</option>
+//       {this.props.productOptions.map(function(option, value) {
+//         return (<option key={value}  value={option}>{option}</option>)
+//       })}
+//       </select>
