@@ -1,58 +1,81 @@
-import React ,{ Component }from 'react';
-import { Player } from 'video-react';
-import HLSSource from './HLSSource';
+import React, { Component } from "react";
+import { Player,ControlBar } from "video-react";
+import HLSSource from "./HLSSource";
+import classNames from 'classnames';
+import * as browser from 'video-react';
+// import Manager from 'video-react'
 
- 
+
 class MyPlayer extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state={
-      // src: 'http://192.168.1.3:8000/out.m3u8'
+    // this.manager = new Manager(props.store);
+    this.state = {
+    
+      src:  "http://192.168.1.3:8000/out.m3u8"      
+      // src: { name: 'موزاییک', address: "http://192.168.1.3:8000/out.m3u8" }      
       // src: 'http://192.168.0.116:8000/out.m3u8'
-      src:'http://172.16.16.153:8000/mosaic.m3u8'
+      // src:'http://172.16.16.153:8000/mosaic.m3u8'
     };
   }
-  componentWillMount(){
-    var src=this.props.src;
-    this.setState({src},()=>{
-
-    })
+  componentWillMount() {
+    var src = this.props.src;
+    this.setState({ src }, () => {});
   }
-  componentWillReceiveProps(newProps){
-    if(this.state.src!==newProps.src){
-    this.setState({src:newProps.src},()=>{
-    console.log('new source',this.state.src)
+  componentWillReceiveProps(newProps) {
+    if (this.state.src !== newProps.src) {
+      this.setState({ src: newProps.src }, () => {
+        this.refs.player.load();
+      });
+    }
+  }
 
-      this.refs.player.load();
-      // this.refs.hlssource.load();
+  render() {
+    // const { fluid } = this.props;
+    console.log(this.refs)
+    // const { player } = this.manager.getState();
+    // const { paused, hasStarted, waiting, seeking, isFullscreen, userActivity } = player;
+    return (
       
-    
+      <div
+        className={classNames({
+          'video-react-controls-enabled': true,
+      //     'video-react-has-started': hasStarted,
+      //     'video-react-paused': paused,
+      //     'video-react-playing': !paused,
+      //     'video-react-waiting': waiting,
+      //     'video-react-seeking': seeking,
+      //     'video-react-fluid': fluid,
+      //     'video-react-fullscreen': isFullscreen,
+      //     'video-react-user-inactive': !userActivity,
+      //     'video-react-user-active': userActivity,
+          'video-react-workinghover': !browser.IS_IOS,
+        }, 'video-react', this.props.className)}
+        // style={this.getStyle()}
+      //   ref={(c) => {
+      //     this.manager.rootElement = c;
+      //   }}
+        role="region"
+        onTouchStart={this.handleMouseDown}
+        onMouseDown={this.handleMouseDown}
+        onMouseMove={this.handleMouseMove}
+        onKeyDown={this.handleKeyDown}
+        onFocus={this.handleFocus}
+        onBlur={this.handleBlur}
+        tabIndex="-1"
+      >
+      {/* <div> */}
+        <Player fluid={true}  ref="player" playsInline={false} >
+        <ControlBar autoHide={true}/>
 
-    })
+          <HLSSource
+            isVideoChild
+            src={this.state.src}
+            autoPlay
+          />
+        </Player>
+      </div>
+    );
   }
-  }
- 
-render(){
-  console.log('new source',this.state.src)
-
-  return (
-    <div>
-      <Player ref='player'>
-      <HLSSource 
-        isVideoChild
-        // src="//d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
-        src={this.state.src}
-        autoPlay
-      />
-    </Player>)
-
-      {/* {this.state.localComponent} */}
-    </div>
-  );
 }
-};
 export default MyPlayer;
-
-
-

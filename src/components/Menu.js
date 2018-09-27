@@ -32,20 +32,18 @@ componentWillMount(){
   if(!this.props.items)return;
   var items=[];
   items[0]=
-  <MenuItem 
+  <MenuItem key={""}
       disabled
      >انتخاب کنید...</MenuItem>
   this.props.items.map((i,index)=>{
-    console.log("this.props.defaultValue: ",this.props.defaultValue)
-    
-    // return (<option key={value}  value={option}>{option}</option>)
 
     items.push(<MenuItem 
-      key={i}
+      key={i.id}
       // disabled={index === 0}
       selected={(index+1 === this.state.selectedIndex)||(i.address===this.props.defaultValue)}
-      onClick={event => this.handleMenuItemClick(event,index+1, i.address)}
+      onClick={event => this.handleMenuItemClick(event,index+1, i.address,i.name)}
       >{i.name}</MenuItem>)
+      return items
   })
   
   this.setState({items});
@@ -55,12 +53,12 @@ handleClickListItem = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
-  handleMenuItemClick = (event, index,id) => {
-    this.setState({ selectedIndex: index, anchorEl: null,selectedSrc:id });
-    console.log('selectedSrc:',this.state.selectedSrc )
+  handleMenuItemClick = (event, index,id,name) => {
+    this.setState({ selectedIndex: index, anchorEl: null,selectedSrc:id ,selectedName:name},()=>{});
 
       var json={}
-    json[this.props.id]=id
+    json['name']=name
+    json['address']=id
     this.props.selectedSrc(json)
   };
 
@@ -90,7 +88,8 @@ handleClickListItem = event => {
           </ListItem>
         </List>
         <Menu 
-          id={this.props.menueId}
+        key={this.props.id}
+          id={this.props.id}
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
@@ -106,31 +105,3 @@ handleClickListItem = event => {
 // };
 // export default SimpleListMenu;
 export default withStyles(styles)(SimpleListMenu);
-
-
-
-
-
-
-// return (
-//   <div className="filter-options">
-//     <div className="filter-option">
-//       <select id="product" name="Product" value={this.props.product} onChange={this.changeOption.bind(this, 'product')}>
-//       <option value=''>Product</option>
-//       {this.props.productOptions.map(function(option) {
-//         return (<option key={option}  value={option}>{option}</option>)
-//       })}
-//       </select>
-//   </div>
-//   </div>
-//  );
-//  }
-//  });
-
-
-//  <select id="product" name="Product" value={this.props.product} onChange={this.changeOption.bind(this, 'product')}>
-//       <option value=''>Product</option>
-//       {this.props.productOptions.map(function(option, value) {
-//         return (<option key={value}  value={option}>{option}</option>)
-//       })}
-//       </select>
