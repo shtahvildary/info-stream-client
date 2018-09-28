@@ -6,7 +6,7 @@ import "./styles/scss/video-react.scss"
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="App" dir='rtl'>
         <InfoPlayer/>
       </div>
     );

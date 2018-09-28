@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import { Player,ControlBar } from "video-react";
+import { Player,ControlBar ,LoadingSpinner} from "video-react";
 import HLSSource from "./HLSSource";
 import classNames from 'classnames';
 import * as browser from 'video-react';
-// import Manager from 'video-react'
-
 
 class MyPlayer extends Component {
   constructor(props) {
@@ -23,6 +21,7 @@ class MyPlayer extends Component {
     this.setState({ src }, () => {});
   }
   componentWillReceiveProps(newProps) {
+    console.log('newProps.sr: ',newProps.sr)
     if (this.state.src !== newProps.src) {
       this.setState({ src: newProps.src }, () => {
         this.refs.player.load();
@@ -32,7 +31,7 @@ class MyPlayer extends Component {
 
   render() {
     // const { fluid } = this.props;
-    console.log(this.refs)
+    // console.log(this.refs)
     // const { player } = this.manager.getState();
     // const { paused, hasStarted, waiting, seeking, isFullscreen, userActivity } = player;
     return (
@@ -66,6 +65,7 @@ class MyPlayer extends Component {
       >
       {/* <div> */}
         <Player fluid={true}  ref="player" playsInline={false} >
+        <LoadingSpinner />
         <ControlBar autoHide={true}/>
 
           <HLSSource

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./styles/App.css";
 import Player from "./components/Player";
 import "video-react/dist/video-react.css"; 
-import Menu from "./components/Menu";
+// import Menu from "./components/Menu";
+import Drawer from "./components/Drawer";
 
 class PlayerPage extends Component {
   constructor(props) {
@@ -49,8 +50,9 @@ class PlayerPage extends Component {
   }
 
   setSrc(src) {
+    console.log(src)
     this.setState({ src: src }, () => {
-      this.fillComponent();
+      this.fillComponent()      
     });
   }
   fillComponent() {
@@ -64,13 +66,18 @@ class PlayerPage extends Component {
   render() {
     return (
       <div>
-        <Menu
+        <Drawer id="myDrawer"
+          items={this.state.channels}
+          selectedSrc={this.setSrc.bind(this)}
+          selectedName={this.state.src.name}
+          elements={this.state.localComponent}/>
+        {/* <Menu
           id="channelsList"
           name="لیست شبکه ها"
           items={this.state.channels}
           selectedSrc={this.setSrc.bind(this)}
-        />
-        {this.state.localComponent}
+        /> */}
+        {/* {this.state.localComponent} */}
       </div>
     );
   }

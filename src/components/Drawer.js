@@ -1,111 +1,64 @@
 import React from 'react';
-// import { Link, Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
-import Button from '@material-ui/core/Button'
 import Toolbar from '@material-ui/core/Toolbar';
+// import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
+// import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-// import { mailFolderListItems, otherMailFolderListItems } from './tileData';
-// import MainAppBar from './AppBar'
-// import { ListItem, ListItemText } from '@material-ui/core/List';
-import ExpandLess from '@material-ui/icons/ExpandLess';
-import ExpandMore from '@material-ui/icons/ExpandMore';
-import Collapse from '@material-ui/core/Collapse';
 
-import PlayerPage from '../PlayerPage'
+// import classNames from "classnames";
+// import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+// import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
+// import ExpandLess from "@material-ui/icons/ExpandLess";
+// import ExpandMore from "@material-ui/icons/ExpandMore";
+// import Collapse from "@material-ui/core/Collapse";
 
-import Dashboard from '@material-ui/icons/Dashboard';
-import Computer from '@material-ui/icons/Computer'
-
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-
-// import Register from '../Register';
-// import computerIcon from '../Icons/twotone-computer-24px'
-
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
 
 const drawerWidth = 240;
 
 const styles = theme => ({
-  ///////////
-  direction:"rtl",
-  ///////////
-
   root: {
+    // direction:'rtl',
+    // anchor:'right',
     flexGrow: 1,
-    height: 'auto',
+    height: 440,
     zIndex: 1,
-    overflow: 'hidden',
+    // overflow: 'hidden',
     position: 'relative',
     display: 'flex',
-  },
-  nested: {
-    paddingLeft: theme.spacing.unit * 4,
+    width: '100%',
   },
   appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-      // color:theme.color
-    }),
-  },
-  appBarShift: {
-    marginRight: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawerPaper: {
-    //my color
-    // backgroundColor: "#e6f9ff",
-    ////
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing.unit * 7,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9,
+    position: 'absolute',
+    // marginRight: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      width: '100%' ,
+      // width: `calc(100% - ${drawerWidth}px)`,
     },
   },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
+  appBarText:{
+    position:'center' ,
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+   
+    width: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+    },
   },
   content: {
     flexGrow: 1,
@@ -114,127 +67,110 @@ const styles = theme => ({
   },
 });
 
-class MiniDrawer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      open: false,
-      managementOpen:false,
-      elements: [],
-      src:''
-    };
-  }
-  handleClickManagement = () => {
-    this.setState(state => ({ managementOpen: !state.managementOpen }));
+
+class ResponsiveDrawer extends React.Component {
+  state = {
+    mobileOpen: false,
+    elements: [],
+      src: "",
   };
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
-  handleDrawerClose = () => {
-    this.setState({ open: false });
-  };
   componentWillMount(event) {
+    if (!this.props.items) return;
+    var items = [];
+    this.props.items.map((i, index) => {
+      items.push(
+        <ListItem
+          key={i.id}
+          button
+          onClick={event => this.selectedSrc(event, i)}
+        >
+          <ListItemText inset primary={i.name} />
+        </ListItem>
+      );
+      return items;
+    });
 
-    this.setState({ elements: this.props.elements }, () => {
-
-    })
+    this.setState({ elements: this.props.elements, items: items }, () => {});
   }
-  selectedSrc(src){
-    console.log('src: ',src)
-if(src!=this.state.src)
-    this.setState({src:src},()=>{
-    console.log('this.state.src: ',this.state.src)
-    this.props.selectedSrc=src
 
-    })
-//     var localComponents=[]
-    
-// localComponents.push(
-//   <PlayerPage src/>
+  selectedSrc(event, i) {
+    this.setState({ selectedSrc: i.address, selectedName: i.name }, () => {
+      this.props.selectedSrc(i);
+    });
+  }
 
-// )
-// this.setState({ localComponent: localComponent },()=>{})
-  
+  componentWillReceiveProps(newProps) {
+    if (this.state.elements !== newProps.elements) {
+      this.setState({ elements: newProps.elements }, () => {
+      });
+    }
   }
 
   render() {
     const { classes, theme } = this.props;
-// console.log('theme: ',theme)
+
+
     return (
-      <div className={classes.root}>
-      {/* <div className={classes.root}> */}
-        <AppBar
-          position="absolute"
-          className={classNames(classes.appBar, this.state.open && classes.appBarShift)}
-        >
-          <Toolbar disableGutters={!this.state.open}>
+      <div className={classes.root} >
+        <AppBar className={classes.appBar} >
+          <Toolbar>
             <IconButton
               color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, this.state.open && classes.hide)}
+              aria-label="انتخاب شبکهr"
+              onClick={this.handleDrawerToggle}
+              className={classes.navIconHide}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
+            <Typography variant="title" color="inherit" noWrap className={classes.appBarText}>
+              {this.props.selectedName}
             </Typography>
           </Toolbar>
         </AppBar>
-        <Drawer
-          variant="permanent"
-          classes={{
-            paper: classNames(classes.drawerPaper, !this.state.open && classes.drawerPaperClose),
-          }}
-          open={this.state.open}
-        >
-          <div className={classes.toolbar}>
-            <IconButton onClick={this.handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-          
-          
-
-          
-          <ListItem>
-          
-          <Button onClick={this.selectedSrc('http://172.16.17.159:8000/out.m3u8')}>شبکه یک</Button>
-          {/* <Button onClick={this.selectedSrc('http://172.16.17.159:8000/out2.m3u8')}>شبکه یک</Button> */}
-          {/* <Button onClick={this.selectedSrc('http://192.168.0.116:8000/out2.m3u8')}>شبکه یک</Button> */}
-          </ListItem>
-         
-
-          <ListItem>
-          <ListItemIcon><Dashboard /></ListItemIcon>
-            <ListItemText>شبکه دو</ListItemText>
-          </ListItem>
-         
-         </List>
-        </Drawer>
+        <Hidden mdUp>
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={this.state.mobileOpen}
+            onClose={this.handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {this.state.items}
+          </Drawer>
+        </Hidden>
+        <Hidden smDown implementation="css">
+          <Drawer
+            variant="permanent"
+            open
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {this.state.items}
+          </Drawer>
+        </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-{/*           
-// {if this.state.elements.length!==0{return(elements.map(e=>{
-//   render(){e}
-// }))}} */}
-<div className="App">
-        
-         
-         
-          </div>
+          <Typography noWrap>{this.state.elements}</Typography>
         </main>
       </div>
     );
   }
 }
 
-MiniDrawer.propTypes = {
+ResponsiveDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles( styles,{ withTheme: true })(MiniDrawer);
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
