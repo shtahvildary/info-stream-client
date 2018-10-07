@@ -31,10 +31,14 @@ const styles = theme => ({
     flexGrow: 1,
     height: 440,
     zIndex: 1,
+    
     // overflow: 'hidden',
     position: 'relative',
     display: 'flex',
     width: '100%',
+  },
+  flex: {
+    flex: 1,
   },
   appBar: {
     position: 'absolute',
@@ -121,13 +125,13 @@ class ResponsiveDrawer extends React.Component {
           <Toolbar>
             <IconButton
               color="inherit"
-              aria-label="انتخاب شبکهr"
+              aria-label="انتخاب شبکه"
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap className={classes.appBarText}>
+            <Typography variant="title" color="inherit"  className={this.state.flex}>
               {this.props.selectedName}
             </Typography>
           </Toolbar>

@@ -10,10 +10,10 @@ class MyPlayer extends Component {
     // this.manager = new Manager(props.store);
     this.state = {
     
-      src:  "http://192.168.1.3:8000/out.m3u8"      
+      // src:  "http://192.168.1.3:8000/out.m3u8"      
       // src: { name: 'موزاییک', address: "http://192.168.1.3:8000/out.m3u8" }      
       // src: 'http://192.168.0.116:8000/out.m3u8'
-      // src:'http://172.16.16.153:8000/mosaic.m3u8'
+      src:'http://172.16.16.153:8000/mosaic.m3u8'
     };
   }
   componentWillMount() {
