@@ -7,19 +7,11 @@ import * as browser from 'video-react';
 class MyPlayer extends Component {
   constructor(props) {
     super(props);
-    // this.manager = new Manager(props.store);
-    this.state = {
-    
-      // src:  "http://192.168.1.3:8000/out.m3u8"      
-      // src: { name: 'موزاییک', address: "http://192.168.1.3:8000/out.m3u8" }      
-      // src: 'http://192.168.0.116:8000/out.m3u8'
-      // src:'http://172.16.16.153:8000/mosaic.m3u8'
-      src:'http://172.16.17.159:8000/tv1.m3u8'
-      // src:'http://62.220.122.5:8000/tv1.m3u8'
-    };
+    this.state = {};
   }
   componentWillMount() {
     var src = this.props.src;
+    console.log("src:",src)
     this.setState({ src }, () => {});
   }
   componentWillReceiveProps(newProps) {

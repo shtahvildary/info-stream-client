@@ -85,23 +85,43 @@ class ResponsiveDrawer extends React.Component {
 
   componentWillMount(event) {
     if (!this.props.items) return;
-    var items = [];
-    this.props.items.map((i, index) => {
-      items.push(
-        <ListItem
-          key={i.id}
-          button
-          onClick={event => this.selectedSrc(event, i)}
-        >
-          <ListItemText inset primary={i.name} />
-        </ListItem>
-      );
-      return items;
-    });
+    // var items = [];
+    // this.props.items.map((i, index) => {
+    //   console.log("i: ",i)
+    //   items.push(
+    //     <ListItem
+    //       key={i.id}
+    //       button
+    //       onClick={event => this.selectedSrc(event, i)}
+    //     >
+    //       <ListItemText inset primary={i.name} />
+    //     </ListItem>
+    //   );
+    //   return items;
+  // });
+    this.setItems(this.props.items)
 
-    this.setState({ elements: this.props.elements, items: items }, () => {});
+    this.setState({ elements: this.props.elements }, () => {});
+    // this.setState({ elements: this.props.elements, items: items }, () => {});
   }
-
+setItems(inputs){
+  var items = [];
+  inputs.map((i, index) => {
+    console.log("i: ",i)
+    items.push(
+      <ListItem
+        key={i.id}
+        button
+        onClick={event => this.selectedSrc(event, i)}
+      >
+        <ListItemText inset primary={i.name} />
+      </ListItem>
+    );
+    return items;
+    
+  })
+  this.setState({  items: items }, () => {});
+}
   selectedSrc(event, i) {
     this.setState({ selectedSrc: i.address, selectedName: i.name }, () => {
       this.props.selectedSrc(i);
@@ -109,6 +129,9 @@ class ResponsiveDrawer extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
+    if (this.state.items !== newProps.items) 
+
+    this.setItems(newProps.items)
     if (this.state.elements !== newProps.elements) {
       this.setState({ elements: newProps.elements }, () => {
       });
