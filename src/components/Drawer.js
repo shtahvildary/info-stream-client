@@ -107,7 +107,6 @@ class ResponsiveDrawer extends React.Component {
 setItems(inputs){
   var items = [];
   inputs.map((i, index) => {
-    console.log("i: ",i)
     items.push(
       <ListItem
         key={i.id}
