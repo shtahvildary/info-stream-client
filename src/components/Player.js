@@ -15,7 +15,6 @@ class MyPlayer extends Component {
     this.setState({ src }, () => {});
   }
   componentWillReceiveProps(newProps) {
-    console.log('newProps.sr: ',newProps.sr)
     if (this.state.src !== newProps.src) {
       this.setState({ src: newProps.src }, () => {
         this.refs.player.load();
