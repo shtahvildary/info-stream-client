@@ -21,3 +21,7 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 samples/JazrMad.MP4
+*.mpg
+src/sample/2019-04-16.01.00.3-0.rec/index
+src/sample/2019-04-16.01.00.3-0.rec/info
+*.mp4
