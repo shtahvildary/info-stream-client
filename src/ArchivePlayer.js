@@ -36,7 +36,7 @@ class PlayerPage extends Component {
       //   { id:21,name: 'سیگنال خارجی', address: "http://172.16.17.159:8000/sdi.m3u8" }
       // ],
 
-       src: { name: "شبکه یک", address: "http://172.16.16.163:8000/JazrMad.mp4" }
+       src: { name: "موزاییک", address: "http://172.16.16.163:8000/mosaic.m3u8" }
 
       // src: { name: "موزاییک", address: "http://172.16.16.195:8000/mosaic.m3u8" }
       // src: { name: "تست ۲", address: "http://192.168.1.10:8000/test2.m3u8" }
